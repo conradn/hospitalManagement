@@ -6,12 +6,12 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'test'
+app.config['MYSQL_DB'] = 'Hospital Database'
 mysql = MySQL(app)
 @app.route("/")
 def home():
    
-    return render_template("index.html")
+    return render_template("signUp.html")
 
 @app.route("/post", methods=["POST","GET"])
 def postValues():
@@ -20,11 +20,16 @@ def postValues():
     
     if request.method == "POST":
         #flash("Data Inserted Successfully")
-        contact = request.form['number']
-        message = request.form['msg']
+        position = request.form['position']
+        firstname = request.form['firstName']
+        lastname = request.form['lastName']
+        gender = request.form('gender')
+        contact = request.form['contact']
+        DOB = request.form['DOB']
+        password = request.form['psw']
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO test1 (name, message) VALUES (%s, %s)", (contact, message))
+        cur.execute("INSERT INTO Hospital Database (position, firstname, lastname, gender, contact, DOB, password) VALUES (%s, %s)", (position, firstName, lastName, gender, contact, DOB, psw))
         mysql.connection.commit()
         cur.close()
         #return render_template("index.html")
@@ -36,9 +41,9 @@ def postValues():
 @app.route("/get", methods=["POST","GET"])
 def getValues():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM test1")
+    cur.execute("SELECT * FROM Hospital Database")
     fetchdata = cur.fetchall()
     cur.close()
-    return render_template("index.html",data = fetchdata)
+    return render_template("signUp.html",data = fetchdata)
 app.run(debug=True)
 
