@@ -11,7 +11,8 @@ mysql = MySQL(app)
 @app.route("/")
 def home():
    
-    return render_template("signUp.html")
+    return render_template("logIn.html")
+    
 
 @app.route("/post", methods=["POST","GET"])
 def postValues():
@@ -29,7 +30,7 @@ def postValues():
         password = request.form['psw']
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Hospital Database (position, firstname, lastname, gender, contact, DOB, password) VALUES (%s, %s)", (position, firstName, lastName, gender, contact, DOB, psw))
+        cur.execute("INSERT INTO Hospital Database (position, firstname, lastname, gender, contact, DOB, password) VALUES (%s, %s)", (position, firstname, lastname, gender, contact, DOB, password))
         mysql.connection.commit()
         cur.close()
         #return render_template("index.html")
