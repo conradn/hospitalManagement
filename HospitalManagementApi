@@ -6,12 +6,12 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'Hospital Database'
+app.config['MYSQL_DB'] = 'hospitaldb'
 mysql = MySQL(app)
 @app.route("/")
 def home():
    
-    return render_template("logIn.html")
+    return render_template("login.html")
     
 
 @app.route("/post", methods=["POST","GET"])
@@ -30,7 +30,7 @@ def postValues():
         password = request.form['psw']
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Hospital Database (position, firstname, lastname, gender, contact, DOB, password) VALUES (%s, %s)", (position, firstname, lastname, gender, contact, DOB, password))
+        cur.execute("INSERT INTO stafftable (position, firstname, lastname, gender, contact, DOB, password) VALUES (%s, %s)", (position, firstname, lastname, gender, contact, DOB, password))
         mysql.connection.commit()
         cur.close()
         #return render_template("index.html")
