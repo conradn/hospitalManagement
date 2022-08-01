@@ -45,6 +45,6 @@ def getValues():
     cur.execute("SELECT * FROM Hospital Database")
     fetchdata = cur.fetchall()
     cur.close()
-    return render_template("signUp.html",data = fetchdata)
+    return render_template("login.html",data = fetchdata)
 app.run(debug=True)
 
